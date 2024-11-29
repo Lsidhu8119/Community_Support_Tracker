@@ -56,7 +56,6 @@ function checkFormSubmission() {
 }
 
 // You can call checkFormSubmission() anywhere in your code to check the submission status.
-// For example, you can use it in intervals to check periodically.
 setInterval(checkFormSubmission, 1000); // Check every second (for demonstration)
 
 // Export functions to be used in Jest or Node.js environment
