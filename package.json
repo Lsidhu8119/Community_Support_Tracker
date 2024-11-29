@@ -1,0 +1,11 @@
+{
+  "name": "community_support_tracker",
+  "version": "1.0.0",
+ "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^29.6.2",
+    "jest-environment-jsdom": "^29.7.0"
+  }
+}
