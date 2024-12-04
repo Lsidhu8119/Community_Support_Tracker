@@ -18,7 +18,7 @@ document.getElementById("eventSignupForm").addEventListener("submit", function (
     }
     if (!formData.role) errors.push("Role selection is required.");
 
-    // Handle validation of errors
+    // Handles validation of errors
     if (errors.length > 0) {
         alert("Errors:\n" + errors.join("\n"));
     } else {
