@@ -1,0 +1,11 @@
+{
+  "name": "community_support_tracker",
+  "version": "1.0.0",
+  "description": "- Users can manage their community contributions, such as donations, volunteer hours, and event registrations, with the use of the Community Support Tracker. It encourages active involvement in community events and streamlines record-keeping. The portal is accessible on all devices thanks to its responsive design.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
