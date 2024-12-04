@@ -4,39 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Donation Tracker</title>
-  <link rel="stylesheet" href="donation_tracker.css">
+  <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-  <header>
-    <h1>Donation Tracker</h1>
-  </header>
-  <main>
-    <section id="donation-form-section">
-      <h2>Add a New Donation</h2>
-      <form id="donation-form">
-        <label for="charity-name">Charity Name:</label>
-        <input type="text" id="charity-name" name="charityName" required>
+  <h1>Donation Tracker</h1>
+  
+  <form id="donation-form">
+    <label for="charity-name">Charity Name:</label>
+    <input type="text" id="charity-name" name="charityName" required>
 
-        <label for="donation-amount">Donation Amount:</label>
-        <input type="number" id="donation-amount" name="donationAmount" required>
+    <label for="donation-amount">Donation Amount:</label>
+    <input type="number" id="donation-amount" name="donationAmount" required>
 
-        <label for="donation-date">Date of Donation:</label>
-        <input type="date" id="donation-date" name="donationDate" required>
+    <label for="donation-date">Date of Donation:</label>
+    <input type="date" id="donation-date" name="donationDate" required>
 
-        <label for="donor-message">Donor Comment/Message:</label>
-        <textarea id="donor-message" name="donorMessage"></textarea>
+    <label for="donor-message">Donor Comment/Message:</label>
+    <textarea id="donor-message" name="donorMessage"></textarea>
 
-        <button type="submit">Submit Donation</button>
-      </form>
+    <button type="submit">Submit Donation</button>
+  </form>
 
-      
-      <p id="form-message"></p> 
-    </section>
-  </main>
+  <p id="form-message"></p>
 
-  <footer>
-    <p> PiXELL River Financial. All Rights are Reserved.</p>
-  </footer>
+  <table id="donation-table">
+    <thead>
+      <tr>
+        <th>Charity Name</th>
+        <th>Donation Amount</th>
+        <th>Date</th>
+        <th>Donor Message</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <p id="total-donation">Total Donated: $0</p>
 
   <script type="module" src="donation_tracker.js"></script>
 </body>
