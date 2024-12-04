@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Signup Form</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Event Signup Form</h1>
+    <form id="eventSignupForm">
+        <label for="eventName">Event Name:</label>
+        <input type="text" id="eventName" name="eventName" required>
+        <br>
+
+        <label for="representativeName">Representative Name:</label>
+        <input type="text" id="representativeName" name="representativeName" required>
+        <br>
+
+        <label for="representativeEmail">Representative Email:</label>
+        <input type="email" id="representativeEmail" name="representativeEmail" required>
+        <br>
+
+        <label for="role">Role:</label>
+        <select id="role" name="role" required>
+            <option value="">--Select Role--</option>
+            <option value="sponsor">Sponsor</option>
+            <option value="participant">Participant</option>
+            <option value="organizer">Organizer</option>
+        </select>
+        <br>
+
+        <button type="submit">Sign Up</button>
+    </form>
+
+    <h2>Signups</h2>
+    <table id="signupTable">
+        <thead>
+            <tr>
+                <th>Event Name</th>
+                <th>Representative Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
+
+    <h2>Upcoming Events</h2>
+    <div id="upcomingEvents">
+    </div>
+
+    <script src="event_signup.js"></script>
+</body>
+</html>
