@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Signup Form</title>
-    <link rel="stylesheet" href="event_signup.css">
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
     <h1>Event Signup Form</h1>
@@ -30,8 +30,28 @@
         </select>
         <br>
 
-        <button type="sign Up">Sign Up</button>
+        <button type="submit">Sign Up</button>
     </form>
+
+    <h2>Signups</h2>
+    <table id="signupTable">
+        <thead>
+            <tr>
+                <th>Event Name</th>
+                <th>Representative Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
+
+    <h2>Upcoming Events</h2>
+    <div id="upcomingEvents">
+    </div>
 
     <script src="event_signup.js"></script>
 </body>
