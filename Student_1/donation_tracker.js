@@ -1,6 +1,9 @@
-// Function for handling form submission
+// Temporary storage for donations
+let donations = JSON.parse(localStorage.getItem('donations')) || [];
+
+// This function is responsible for handling form submission
 export function handleDonationFormSubmit(event) {
-  event.preventDefault(); // Prevent the default form submission
+  event.preventDefault();
 
   const formData = {
     charityName: document.getElementById('charity-name').value.trim(),
@@ -9,60 +12,88 @@ export function handleDonationFormSubmit(event) {
     donorMessage: document.getElementById('donor-message').value.trim(),
   };
 
-  // Validate the form data
   try {
     validateDonationForm(formData);
-    console.log('Form data is valid:', formData); // Log valid form data
 
-    // Display a success message
-    displaySuccessMessage(); 
+    donations.push(formData);
+    saveDonationsToLocalStorage();
+    displayDonations();
+    displayTotalDonated();
 
-    return formData; // Return valid data
+    clearFormInputs();
   } catch (error) {
-    alert(error.message); // Display error message to user
-    return null; // Return null value on validation failure
+    alert(error.message);
   }
 }
 
-// Validation function for the form
+// Validates function for donation form
 export function validateDonationForm(data) {
   const { charityName, donationAmount, donationDate, donorMessage } = data;
 
-  // Check whether the name of charity is empty
-  if (!charityName) {
-    throw new Error('Charity Name is required.');
-  }
+  if (!charityName) throw new Error('Charity Name is required.');
+  if (isNaN(donationAmount) || donationAmount <= 0) throw new Error('Donation Amount must be a valid positive number.');
+  if (!donationDate || isNaN(new Date(donationDate).getTime())) throw new Error('Invalid Donation Date.');
+  if (donorMessage.length > 255) throw new Error('Message should not exceed 255 characters.');
 
-  // Check if donation amount is valid, must be a positive number only
-  if (isNaN(donationAmount) || donationAmount <= 0) {
-    throw new Error('Donation Amount must be a valid positive number.');
-  }
-
-  // Check if donation date is valid
-  if (!donationDate || isNaN(new Date(donationDate).getTime())) {
-    throw new Error('Invalid Donation Date.');
-  }
-
-  // Check if donor message length does not exceed 255 characters
-  if (donorMessage.length > 255) {
-    throw new Error('Message should not exceed 255 characters.');
-  }
-
-  // All validations passed
   return true;
 }
 
-// Function to display success message after successful form submission
-function displaySuccessMessage() {
-  const messageContainer = document.getElementById('form-message');
-  messageContainer.textContent = "Donation submitted successfully! Thank you for your contribution.";
-  messageContainer.style.color = 'green';
+// This functions is made to save donations to localStorage
+function saveDonationsToLocalStorage() {
+  localStorage.setItem('donations', JSON.stringify(donations));
 }
 
-// Attach event listener to form submission
+// Function for  displaying  all donations in the table
+function displayDonations() {
+  const tableBody = document.querySelector('#donation-table tbody');
+  tableBody.innerHTML = '';
+
+  donations.forEach((donation, index) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${donation.charityName}</td>
+      <td>$${donation.donationAmount.toFixed(2)}</td>
+      <td>${donation.donationDate}</td>
+      <td>${donation.donorMessage}</td>
+      <td><button class="delete-button" data-index="${index}">Delete</button></td>
+    `;
+    tableBody.appendChild(row);
+  });
+
+  // It attachees event listeners to delete buttons
+  document.querySelectorAll('.delete-button').forEach((button) =>
+    button.addEventListener('click', (event) => {
+      const index = parseInt(event.target.dataset.index, 10);
+      deleteDonation(index);
+    })
+  );
+}
+
+// Function for calculating and display the total donation amount
+function displayTotalDonated() {
+  const total = donations.reduce((sum, donation) => sum + donation.donationAmount, 0);
+  document.getElementById('total-donation').textContent = `Total Donated: $${total.toFixed(2)}`;
+}
+
+// Function for deleting a donation
+export function deleteDonation(index) {
+  donations.splice(index, 1);
+  saveDonationsToLocalStorage();
+  displayDonations();
+  displayTotalDonated();
+}
+
+// Function for clearing form inputs
+function clearFormInputs() {
+  document.getElementById('charity-name').value = '';
+  document.getElementById('donation-amount').value = '';
+  document.getElementById('donation-date').value = '';
+  document.getElementById('donor-message').value = '';
+}
+
+// Initial rendering when the page loads
 document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('donation-form');
-  if (form) {
-    form.addEventListener('submit', handleDonationFormSubmit);
-  }
+  document.getElementById('donation-form').addEventListener('submit', handleDonationFormSubmit);
+  displayDonations();
+  displayTotalDonated();
 });
