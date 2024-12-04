@@ -22,10 +22,63 @@ document.getElementById("eventSignupForm").addEventListener("submit", function (
     if (errors.length > 0) {
         alert("Errors:\n" + errors.join("\n"));
     } else {
-        console.log("Form data:", formData); // Temporary storage of data
-        localStorage.setItem("eventSignup", JSON.stringify(formData)); // Save data to localStorage
+        // Save data to localStorage
+        let signups = JSON.parse(localStorage.getItem("eventSignups")) || [];
+        signups.push(formData);
+        localStorage.setItem("eventSignups", JSON.stringify(signups));
+        
         alert("Form sign up successfully!");  // Display success message
-        // Optional: Clear the form after successful submission
         document.getElementById("eventSignupForm").reset();
+        loadSignups();
     }
 });
+
+// Load signups from localStorage and display them in the table
+function loadSignups() {
+    const signups = JSON.parse(localStorage.getItem("eventSignups")) || [];
+    const tableBody = document.getElementById("signupTable").querySelector("tbody");
+    tableBody.innerHTML = ''; // Clear the table before reloading data
+
+    signups.forEach((signup, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = 
+            `<td>${signup.eventName}</td>
+            <td>${signup.representativeName}</td>
+            <td>${signup.representativeEmail}</td>
+            <td>${signup.role}</td>
+            <td><button onclick="deleteSignup(${index})">Delete</button></td>`;
+        tableBody.appendChild(row);
+    });
+
+    updateUpcomingEvents(signups);
+}
+
+// Delete a signup entry from both the table and localStorage
+function deleteSignup(index) {
+    let signups = JSON.parse(localStorage.getItem("eventSignups")) || [];
+    signups.splice(index, 1); // Remove the signup at the specified index
+    localStorage.setItem("eventSignups", JSON.stringify(signups));
+    loadSignups(); // Reload the signups table after deletion
+}
+
+// Update the "Upcoming Events" section with a breakdown of signups by role
+function updateUpcomingEvents(signups) {
+    const roleCount = {
+        sponsor: 0,
+        participant: 0,
+        organizer: 0
+    };
+
+    signups.forEach(signup => {
+        roleCount[signup.role]++;
+    });
+
+    const upcomingEvents = document.getElementById("upcomingEvents");
+    upcomingEvents.innerHTML = 
+        `<p>Sponsors: ${roleCount.sponsor}</p>
+        <p>Participants: ${roleCount.participant}</p>
+        <p>Organizers: ${roleCount.organizer}</p>`;
+}
+
+// Initialize the app by loading any saved signups when the page loads
+window.onload = loadSignups;
