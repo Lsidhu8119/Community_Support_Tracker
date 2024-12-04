@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Volunteer Hours Tracker</title>
-    <link rel="stylesheet" href="volunteer_form.css"> 
+    <link rel="stylesheet" href="/styles.css"> 
 </head>
 <body>
     <header>
@@ -29,6 +29,25 @@
             <button type="submit">Submit</button>
         </form>
         <p id="success-message" style="display: none; color: green;">Form submitted successfully!</p>
+        
+        <table id="volunteer-table">
+            <thead>
+                <tr>
+                    <th>Charity Name</th>
+                    <th>Hours Volunteered</th>
+                    <th>Date</th>
+                    <th>Experience Rating</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows will be dynamically added -->
+            </tbody>
+        </table>
+        
+        <section id="summary">
+            <h2>Total Hours Volunteered: <span id="total-hours">0</span></h2>
+        </section>
     </main>
     <footer>
     </footer>
