@@ -18,7 +18,7 @@ document.getElementById("eventSignupForm").addEventListener("submit", function (
     }
     if (!formData.role) errors.push("Role selection is required.");
 
-    // Handle validation errors
+    // Handle validation of errors
     if (errors.length > 0) {
         alert("Errors:\n" + errors.join("\n"));
     } else {
@@ -33,7 +33,7 @@ document.getElementById("eventSignupForm").addEventListener("submit", function (
     }
 });
 
-// Load signups from localStorage and display them in the table
+// Get signups from localStorage and put them in the table.
 function loadSignups() {
     const signups = JSON.parse(localStorage.getItem("eventSignups")) || [];
     const tableBody = document.getElementById("signupTable").querySelector("tbody");
